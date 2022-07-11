@@ -28,6 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <script>
         
+        // Initializing Scene, Camera and everything in between
         var scene = new THREE.Scene();
 
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -53,11 +54,12 @@
         var score = 0;
         var gravity = 0.12;
         var pipespeed = 0.15;
+        
         document.getElementById("endgame").style.display="none";
         document.getElementById("lives").style.display="none";
         document.getElementById("tryhard").style.display="none";
         document.getElementById("pausemenu").style.display="none";
-
+        
         function pause(){
             document.getElementById("pause").style.display="none";
             document.getElementById("pausemenu").style.display="block";
@@ -77,11 +79,12 @@
             bird.rotation.y += 0.01;
             */
             bird.position.y -= gravity;
-            // Fall Safety Net for testing
             if(bird.position.y < 0){
-                // bird.position.y += 15;
+                // bird.position.y += 15; // Fall Safety Net for testing
                 gamerun+=1;
             }
+                
+            // Pipe Movement, Respawn, and Hitboxes
             pipe.position.z += pipespeed;
             pipe2.position.z += pipespeed;
             pipe3.position.z += pipespeed;
@@ -146,12 +149,14 @@
                 game_over();
             }
         }
-
+        
         function game_over(){
             finalscore = score;
             document.getElementById("score").style.display="none";
             document.getElementById("pause").style.display="none";
+            document.getElementById("pausemenu").style.display="none";
             document.getElementById("lives").style.display="none";
+            document.getElementById("tryhard").style.display="none";
             document.getElementById("endgame").style.display="block";
             document.getElementById("finalscore").innerHTML=finalscore;
         }
@@ -175,7 +180,8 @@
             gamerun -= 1;
             render();
         }
-
+        
+        // Initializing 3D models, setting up scale and positions
         var sphere = new THREE.SphereGeometry(1, 5, 10);
         var cube = new THREE.BoxGeometry(5, 25, 5);
         var cylinder = new THREE.CylinderGeometry(5, 5, 25, 15);
