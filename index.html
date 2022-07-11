@@ -17,12 +17,12 @@
     <button class="absolute text-black pause button" onclick="resume()">sorry</button>
     </div>
     <h1 id="lives" class="absolute text-black secret-continue">Lives Used:</h1>
-    <h1 id="tryhard" class="absolute text-black tryhard">Frickin Tryhard...</h1>
+    <h1 id="tryhard" class="absolute text-black tryhard">That's enough...</h1>
     <div id="endgame">
     <h1 id="finalscore" class="absolute text-black score-position score-font">0</h1>
     <h1 id="gameover" class="absolute text-black absolute-text-center gameover-font">GAME OVER</h1>
     <button class="absolute text-black button-position score-font button" onclick="window.location.reload()">Try Again?</button>
-    <button class="absolute text-black secret-continue button" onclick="continueplay()">keep going</button>
+    <button id="continue" class="absolute text-black secret-continue button" onclick="continueplay()">keep going</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
@@ -74,10 +74,7 @@
             if(gamerun==1){
             requestAnimationFrame(render);
             
-            /* Basic rotation animation
-            bird.rotation.x += 0.01;
-            bird.rotation.y += 0.01;
-            */
+            // Bird gravity and floor collision
             bird.position.y -= gravity;
             if(bird.position.y < 0){
                 // bird.position.y += 15; // Fall Safety Net for testing
@@ -169,6 +166,7 @@
             document.getElementById("lives").innerHTML="Lives Used: " + lives_used;
             document.getElementById("endgame").style.display="none";
             if(lives_used >= 3){
+                document.getElementById("continue").style.display="none";
                 document.getElementById("tryhard").style.display="block";
             }
             if(bird.position.y <= 5 || bird.position.y >= 15){
@@ -212,21 +210,13 @@
         pipe.position.set(0, Math.random()*(15-0.1)+0.1, 0);
         pipe2.position.set(0, Math.random()*(15-0.1)+0.1, -30);
         pipe3.position.set(0, Math.random()*(15-0.1)+0.1, -60);
-
-        /*
-        bird.position.x = 2;
-        bird.position.y = -2;
-        bird.position.z = 1;
-        // bird.position.set(2, -2, 1) does all the above statements at once
-        bird.rotation.set(45, 100, 90); // Just rotation along x, y, and z
-        bird.scale.set(1, 2, 1) // Scaling along x, y, and z
-        */
         
         scene.add(bird);
         scene.add(pipe);
         scene.add(floor);
         scene.add(pipe2);
         scene.add(pipe3);
+        
         var light = new THREE.PointLight(0xFFFFFF, 1, 500);
         var amblight = new THREE.AmbientLight(0xFFFFFF, 0.5, 500);
         light.position.set(10,2,25);
