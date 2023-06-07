@@ -1,8 +1,8 @@
 # threejs-flappy
-flappy bird remade with three.js
+flappy bird remade in 3D with three.js
 
-a ripoff made for the tathva tech team inductions
+originally made for the tathva tech team inductions
 
-might add fancy stuff later
+tap or click to jump that's it
 
-only way to control the sphere is to left click so have fun
+have fun getting a highscore :)
